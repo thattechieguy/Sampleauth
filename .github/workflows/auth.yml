@@ -36,7 +36,7 @@ jobs:
         with:
           client-id: ${{secrets.AZURE_CLIENT_ID}}
           client-secret: ${{ secrets.ARM_CLIENT_SECRET }}
-          tenant-id: ${{secrepts.ARM_TENANT_ID}} 
+          tenant-id: ${{secrets.ARM_TENANT_ID}} 
 
       - name: Get GitHub Actor
         run: |
