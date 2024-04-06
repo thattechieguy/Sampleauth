@@ -32,12 +32,12 @@ jobs:
 
 
       - name: Login to Azure
-       uses: Azure/login@v1
+        uses: Azure/login@v1
         with:
           client-id: ${{secrets.ARM_CLIENT_ID}}
-          client-secret: ${{ secrets.ARM_CLIENT_SECRET }}
+          #client-secret: ${{ secrets.ARM_CLIENT_SECRET }}
           tenant-id: ${{secrets.ARM_TENANT_ID}}
-
+          subscription-id: ${{secrets.ARM_SUBSCRIPTION_ID}}
       - name: Get GitHub Actor
         run: |
               az account show
