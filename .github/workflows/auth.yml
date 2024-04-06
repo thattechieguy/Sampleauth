@@ -1,0 +1,43 @@
+name: "IAC Deploy" ## Workflow name
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main   
+  pull_request:
+    branches:
+      - main       
+     
+ 
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+
+jobs:   
+  iac-infra-deploy:
+    name: Deploy IAC Code
+    runs-on: [ubuntu-latest]
+    environment: DEV
+    env:
+       ARM_CLIENT_ID:  ${{ secrets.ARM_CLIENT_ID }}
+       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
+   # if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'   
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+
+      - name: Login to Azure
+        uses: Azure/login@v1
+        with:
+          client-id: ${{secrets.AZURE_CLIENT_ID}}
+          client-secret: ${{ secrets.ARM_CLIENT_SECRET }}
+          tenant-id: ${{secrepts.ARM_TENANT_ID}} 
+
+      - name: Get GitHub Actor
+        run: |
+              az account show
